@@ -144,43 +144,34 @@ module.exports = function(grunt) {
 	    
         callback(css, true);
       } else {
-		var tss;
-		css = css.replace(/;/gi, ",");
-		css = css.replace(/\}/gi, "},");
-		css = css.replace(/(.+?).?\{/gi, "\"$1\": {");
-		css = css.replace(/,\n\},/gi, "\n\}");
-		css = css.replace(/\}\n\"/gi, "\},\n\"");
-		css = css.replace(/['"]expr(.+?)['"]/gi, "expr$1");
-		css = css.replace(/['"]Ti(.+?)['"]/gi, "Ti$1");
-		css = css.replace(/['"]Titanium(.+?)['"]/gi, "Titanium$1");
-		css = css.replace(/['"]Alloy(.+?)['"]/gi, "Alloy$1");
-		tss = css;
-		var tss2 = [];
-		    tss.split("\n").forEach(function(line) {
-		      if (line.match(/font:/)) {
-		        var fontObj = RegExp.rightContext.replace(/(^\s+)|(\s+$)/g, "");
-		        var closeBrace = "  }";
-		        if (fontObj.match(/,$/)) {
-		          closeBrace = closeBrace + ",";
-		          fontObj = fontObj.replace(/,$/, "");
-		        }
+		  var tss;
 
-		        tss2.push("  font: {");
-		        var fontObjArray = fontObj.split(",");
-		        for (var i = 0; i < fontObjArray.length; i++) {
-		          var f = fontObjArray[i].replace(/(^\s+)|(\s+$)/g, "").replace(/ /, ":");
-		          if (1 < fontObjArray.length && i < (fontObjArray.length - 1)) {
-		            f = f + ",";
+		   css = css.replace(/;/gi, ",");// ; to , css = css.replace(/\}/gi, "},"); // add , css =
+		  css.replace(/([^\",\}]+?)\s?\{/gi, "\"$1\": {"); // class : css = css.replace(/,\n\},/gi, "\n\}"); // delete
+		  last , css = css.replace(/\}\n\"/gi, "\},\n\""); // add , css = css.replace(/['"]expr(.+?)['"]/gi, "expr$1");
+		  css = css.replace(/['"]Ti(.+?)['"]/gi, "Ti$1"); // Ti.UI.SIZE etc. css =
+		  css.replace(/['"]Titanium(.+?)['"]/gi, "Titanium$1"); // Titanium.UI.SIZE etc. css =
+		  css.replace(/['"]Alloy(.+?)['"]/gi, "Alloy$1"); // Alloy.xxx etc. tss = css; var tss2 = [];
+		  tss.split("\n").forEach(function(line) { if (line.match(/font:/)) { var fontObj =
+		  RegExp.rightContext.replace(/(^\s+)|(\s+$)/g, ""); var closeBrace = " }"; if (fontObj.match(/,$/)) {
+		  closeBrace = closeBrace + ","; fontObj = fontObj.replace(/,$/, ""); }
+
+		          tss2.push("  font: {");
+		          var fontObjArray = fontObj.split(",");
+		          for (var i = 0; i < fontObjArray.length; i++) {
+		            var f = fontObjArray[i].replace(/(^\s+)|(\s+$)/g, "").replace(/ /, ":");
+		            if (1 < fontObjArray.length && i < (fontObjArray.length - 1)) {
+		              f = f + ",";
+		            }
+		            tss2.push("    " + f);
 		          }
-		          tss2.push("    " + f);
+
+		          tss2.push(closeBrace);
+		        } else {
+		          tss2.push(line);
 		        }
-
-		        tss2.push(closeBrace);
-		      } else {
-		        tss2.push(line);
-		      }
-		    });
-
+		      });
+		  		
         callback(tss2.join("\n"), null);
       }
     });
