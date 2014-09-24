@@ -12,7 +12,7 @@ module.exports = function(grunt) {
   var async = require('async');
   var _ = require('lodash');
 
-  grunt.registerMultiTask('stylus', 'Compile Stylus files into TSS', function() {
+  grunt.registerMultiTask('stylus2tss', 'Compile Stylus files into TSS', function() {
      var done = this.async();
     var path = require('path');
     var chalk = require('chalk');
