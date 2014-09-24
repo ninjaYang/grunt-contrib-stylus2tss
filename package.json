@@ -1,7 +1,7 @@
 {
   "name": "grunt-contrib-stylus2tss",
   "description": "Compile Stylus files to tss files for Titanium Alloy Project.",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "homepage": "https://github.com/ninjaYang/grunt-contrib-stylus2tss",
   "author": {
     "name": "Ningfeng Yang",

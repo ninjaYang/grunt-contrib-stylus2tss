@@ -144,16 +144,44 @@ module.exports = function(grunt) {
 	    
         callback(css, true);
       } else {
-  	    css = css.replace(/;/gi, ",");
-  	    css = css.replace(/\}/gi, "},");
-  	    css = css.replace(/(.+?).?\{/gi, "\"$1\": {");
-  	    css = css.replace(/,\n\},/gi, "\n\}");
-  	    css = css.replace(/\}\n\"/gi, "\},\n\"");
-  	    css = css.replace(/['"]expr(.+?)['"]/gi, "expr$1");
-  	    css = css.replace(/['"]Ti(.+?)['"]/gi, "Ti$1");
-  	    css = css.replace(/['"]Titanium(.+?)['"]/gi, "Titanium$1");
-  	    css = css.replace(/['"]Alloy(.+?)['"]/gi, "Alloy$1"); 
-        callback(css, null);
+		var tss;
+		css = css.replace(/;/gi, ",");
+		css = css.replace(/\}/gi, "},");
+		css = css.replace(/(.+?).?\{/gi, "\"$1\": {");
+		css = css.replace(/,\n\},/gi, "\n\}");
+		css = css.replace(/\}\n\"/gi, "\},\n\"");
+		css = css.replace(/['"]expr(.+?)['"]/gi, "expr$1");
+		css = css.replace(/['"]Ti(.+?)['"]/gi, "Ti$1");
+		css = css.replace(/['"]Titanium(.+?)['"]/gi, "Titanium$1");
+		css = css.replace(/['"]Alloy(.+?)['"]/gi, "Alloy$1");
+		tss = css;
+		var tss2 = [];
+		    tss.split("\n").forEach(function(line) {
+		      if (line.match(/font:/)) {
+		        var fontObj = RegExp.rightContext.replace(/(^\s+)|(\s+$)/g, "");
+		        var closeBrace = "  }";
+		        if (fontObj.match(/,$/)) {
+		          closeBrace = closeBrace + ",";
+		          fontObj = fontObj.replace(/,$/, "");
+		        }
+
+		        tss2.push("  font: {");
+		        var fontObjArray = fontObj.split(",");
+		        for (var i = 0; i < fontObjArray.length; i++) {
+		          var f = fontObjArray[i].replace(/(^\s+)|(\s+$)/g, "").replace(/ /, ":");
+		          if (1 < fontObjArray.length && i < (fontObjArray.length - 1)) {
+		            f = f + ",";
+		          }
+		          tss2.push("    " + f);
+		        }
+
+		        tss2.push(closeBrace);
+		      } else {
+		        tss2.push(line);
+		      }
+		    });
+
+        callback(tss2.join("\n"), null);
       }
     });
   };
