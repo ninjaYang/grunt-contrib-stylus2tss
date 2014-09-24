@@ -1,7 +1,7 @@
 {
   "name": "grunt-contrib-stylus2tss",
   "description": "Compile Stylus files to tss files for Titanium Alloy Project.",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "homepage": "https://github.com/ninjaYang/grunt-contrib-stylus2tss",
   "author": {
     "name": "Ningfeng Yang",
@@ -14,12 +14,10 @@
   "bugs": {
       "url": "https://github.com/ninjaYang/grunt-contrib-stylus2tss/issues"
   },
-  "licenses": [
-  {
+  "licenses": [{
     "type": "MIT",
     "url": "https://github.com/gruntjs/grunt-contrib-stylus/blob/master/LICENSE-MIT"
-  }
-  ],
+  }],
   "engines": {
     "node": ">=0.10.0"
   },
@@ -55,5 +53,5 @@
   "tss",
   "Stylus",
   "Grunt"
-    ],
+    ]
 }
