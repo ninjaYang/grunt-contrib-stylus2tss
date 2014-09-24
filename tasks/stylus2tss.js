@@ -141,18 +141,18 @@ module.exports = function(grunt) {
       if (err) {
         grunt.log.error(err);
         grunt.fail.warn('Stylus failed to compile.');
-	    css = css.replace(/;/gi, ",");
-	    css = css.replace(/\}/gi, "},");
-	    css = css.replace(/(.+?).?\{/gi, "\"$1\": {");
-	    css = css.replace(/,\n\},/gi, "\n\}");
-	    css = css.replace(/\}\n\"/gi, "\},\n\"");
-	    css = css.replace(/['"]expr(.+?)['"]/gi, "expr$1");
-	    css = css.replace(/['"]Ti(.+?)['"]/gi, "Ti$1");
-	    css = css.replace(/['"]Titanium(.+?)['"]/gi, "Titanium$1");
-	    css = css.replace(/['"]Alloy(.+?)['"]/gi, "Alloy$1");
+	    
         callback(css, true);
       } else {
-		  
+  	    css = css.replace(/;/gi, ",");
+  	    css = css.replace(/\}/gi, "},");
+  	    css = css.replace(/(.+?).?\{/gi, "\"$1\": {");
+  	    css = css.replace(/,\n\},/gi, "\n\}");
+  	    css = css.replace(/\}\n\"/gi, "\},\n\"");
+  	    css = css.replace(/['"]expr(.+?)['"]/gi, "expr$1");
+  	    css = css.replace(/['"]Ti(.+?)['"]/gi, "Ti$1");
+  	    css = css.replace(/['"]Titanium(.+?)['"]/gi, "Titanium$1");
+  	    css = css.replace(/['"]Alloy(.+?)['"]/gi, "Alloy$1"); 
         callback(css, null);
       }
     });
